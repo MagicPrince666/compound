@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <sys/stat.h>
 
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"      /* Black */
@@ -26,11 +27,21 @@ int main(int argc, char* argv[])
     std::ifstream firmware;
 
     if(argc >= 3) {
-        image.open(argv[1], std::ios::in | std::ios::out | std::ios::binary);
+        struct stat buffer;   
+        if(stat(argv[1], &buffer) == 0) {
+            std::cout << RED <<"Remove " << argv[1] <<" Image file\n";
+            remove(argv[1]);
+        }
+        image.open(argv[1], std::ios::out | std::ios::binary);
         uboot.open(argv[2], std::ios::in | std::ios::binary);
         firmware.open(argv[3], std::ios::in | std::ios::binary);
     } else {
-        image.open("mt7628.bin", std::ios::in | std::ios::out | std::ios::binary);
+        struct stat buffer;   
+        if(stat("mt7628.bin", &buffer) == 0) {
+            std::cout << RED <<"Remove " << "mt7628.bin" <<" Image file\n";
+            remove("mt7628.bin");
+        }
+        image.open("mt7628.bin", std::ios::out | std::ios::binary);
         uboot.open("uboot.bin", std::ios::in | std::ios::binary);
         firmware.open("firmware.bin", std::ios::in | std::ios::binary);
     }
