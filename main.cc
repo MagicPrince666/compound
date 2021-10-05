@@ -59,7 +59,8 @@ int main(int argc, char* argv[])
         return -1;
     }
 
-    char *buffer = new char[192*1024]();//192k
+    int size = 0x50000;
+    char *buffer = new char[size]();
 
     uboot.seekg(0, std::ios::end);    // go to the end
     int length = uboot.tellg();
@@ -68,7 +69,7 @@ int main(int argc, char* argv[])
     uboot.close();
     std::cout << GREEN <<"Read uboot done\n";
 
-    image.write(buffer, 192*1024);
+    image.write(buffer, size);
     delete[] buffer;
     std::cout << GREEN <<"Write uboot done\n";
 
