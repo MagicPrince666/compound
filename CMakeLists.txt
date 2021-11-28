@@ -22,7 +22,10 @@ MESSAGE(STATUS ${CMAKE_SYSTEM_NAME})
 
 set(EXEC_NAME mt7628)
 
-add_executable(${EXEC_NAME} main.cc
+add_executable(${EXEC_NAME}
+        main.cc
+        separator.cc
+        synthetic.cc
 )
 
 target_link_libraries(${EXEC_NAME} 
