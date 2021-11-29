@@ -10,6 +10,9 @@
 #define UBOOT_ENV_FILE_NAME     "image/uboot_env.bin"
 #define FACTORY_FILE_NAME       "image/factory.bin"
 #define FIRMWARE_FILE_NAME      "image/firmware.bin"
+#define KERNEL_FILE_NAME        "image/kernel.bin"
+#define ROOTFS_FILE_NAME        "image/rootfs.bin"
+#define MSG1_FILE_NAME          "image/mag1.bin"
 
 Separator::Separator(std::string image_file)
 {
@@ -30,6 +33,9 @@ Separator::Separator(std::string image_file)
     uboot_env_.open(UBOOT_ENV_FILE_NAME, std::ios::out | std::ios::binary);
     factory_.open(FACTORY_FILE_NAME, std::ios::out | std::ios::binary);
     firmware_.open(FIRMWARE_FILE_NAME, std::ios::out | std::ios::binary);
+    kernel_.open(KERNEL_FILE_NAME, std::ios::out | std::ios::binary);
+    rootfs_.open(ROOTFS_FILE_NAME, std::ios::out | std::ios::binary);
+    msg1_.open(MSG1_FILE_NAME, std::ios::out | std::ios::binary);
 
     Start();
 }
@@ -41,6 +47,7 @@ Separator::~Separator()
     uboot_env_.close();
     factory_.close();
     firmware_.close();
+    msg1_.close();
 }
 
 bool Separator::Start()
@@ -72,6 +79,24 @@ bool Separator::Start()
         return false;
     }
     OutputFile(image_, firmware_, FIRMWARE_ADDR, FIRMWARE_SIZE);
+
+    if (!msg1_.is_open()) {
+        std::cout << RED <<"unknow message is not open\n";
+        return false;
+    }
+    OutputFile(image_, msg1_, MSG1_ADDR, MSG1_SIZE);
+
+    if (!kernel_.is_open()) {
+        std::cout << RED <<"Kernel is not open\n";
+        return false;
+    }
+    OutputFile(image_, kernel_, KERNEL_ADDR, KERNEL_SIZE);
+
+    if (!rootfs_.is_open()) {
+        std::cout << RED <<"Rootfs is not open\n";
+        return false;
+    }
+    OutputFile(image_, rootfs_, ROOTFS_ADDR, ROOTFS_SIZE);
 
     return true;
 }
