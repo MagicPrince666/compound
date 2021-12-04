@@ -1,0 +1,12 @@
+#!/bin/sh
+stty -F /dev/ttyS1 -echo speed 115200 > /dev/null
+stty -F /dev/ttyS0 -echo speed 115200 > /dev/null
+syscfg init1
+[ -f /etc/banner ] && cat /etc/banner
+export PATH=/usr/sbin:/usr/bin:/sbin:/bin
+#export HOME=$(grep -e "^${USER:-root}:" /etc/passwd | cut -d ":" -f 6)
+export HOME=/tmp
+#export PS1='\u@\h:\w\$ '
+export PS1='jcxxkj@socket:-) '
+
+

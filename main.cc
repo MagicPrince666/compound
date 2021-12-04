@@ -15,11 +15,10 @@ int main(int argc, char* argv[])
         Synthetic synthetic(argv[1], argv[2], argv[3]);
     } else if(argc == 2) { // 分离固件
         Separator separator(argv[1]);
+        AnalyzeBin analyze_bin("image/mag1.bin");
     } else {
         std::cout << RED <<"Param Error\n";
     }
-
-    AnalyzeBin analyze_bin("image/mag1.bin");
 
     return 0;
 }
