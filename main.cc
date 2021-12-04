@@ -5,6 +5,7 @@
 #include "interface.h"
 #include "synthetic.h"
 #include "separator.h"
+#include "analyze_bin.h"
 
 int main(int argc, char* argv[])
 {
@@ -17,6 +18,8 @@ int main(int argc, char* argv[])
     } else {
         std::cout << RED <<"Param Error\n";
     }
+
+    AnalyzeBin analyze_bin("image/mag1.bin");
 
     return 0;
 }

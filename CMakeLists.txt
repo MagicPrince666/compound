@@ -26,6 +26,7 @@ add_executable(${EXEC_NAME}
         main.cc
         separator.cc
         synthetic.cc
+        analyze_bin.cc
 )
 
 target_link_libraries(${EXEC_NAME} 
